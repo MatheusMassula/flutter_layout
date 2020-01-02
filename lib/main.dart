@@ -84,13 +84,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ],
           ),
         ),
-        Column(children: <Widget>[Icon(Icons.star, color: Colors.red[500])]),
-        Column(children: <Widget>[
-          Text(
-            '41',
-            style: TextStyle(fontSize: 20.0),
-          )
-        ]),
+        FavoriteWidget()
       ],
     ),
   );
@@ -127,5 +121,51 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ],
     );
+  }
+}
+
+class FavoriteWidget extends StatefulWidget {
+  @override
+  _FavoriteWidgetState createState() => _FavoriteWidgetState();
+}
+
+class _FavoriteWidgetState extends State<FavoriteWidget> {
+  bool _isFavorited = true;
+  int _favoriteCount = 41;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        Container(
+          padding: EdgeInsets.all(0),
+          child: IconButton(
+            icon: (_isFavorited ? Icon(Icons.star) : Icon(Icons.star_border)),
+            color: Colors.red[500],
+            onPressed: _toggleFavorite,
+          ),
+        ),
+        SizedBox(
+          width: 18,
+          child: Container(
+            child: Text('$_favoriteCount'),
+          ),
+        )
+      ],
+    );
+  }
+
+  void _toggleFavorite() {
+    setState(() {
+      if(_isFavorited){
+        _isFavorited = false;
+        _favoriteCount--;
+      }
+      else {
+        _isFavorited = true;
+        _favoriteCount++;
+      }
+    });
   }
 }
